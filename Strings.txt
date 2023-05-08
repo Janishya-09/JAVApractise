@@ -1,0 +1,41 @@
+public class ClassA
+{
+   void meth1()
+   {
+       String s1=new String("Java");
+       StringBuffer buffer1=new StringBuffer("Java");
+       StringBuilder builder1=new StringBuilder("Java");
+       System.out.println("s1:" +s1);
+       System.out.println("buffer1:" +buffer);
+       System.out.println("builder1:" +builder);
+       s1=s1.concat("is awesome");
+       buffer1.append("is awesome");
+       builder1.append("is awesome");
+       System.out.println("--------------");
+       System.out.println("s1:" +s1);
+       System.out.println("buffer1:" +buffer1);
+       System.out.println("builder1:" +builder1);
+   }
+   void meth2()
+    {
+        System.out.println("Implementing equals() on String,StringBuffer,StringBuilder class");
+        String s1=new String("Java");
+        StringBuffer buffer1=new StringBuffer("Java");
+        StringBuilder builder1=new StringBuilder("Java");
+        System.out.println(s1.equals(s2));
+        System.out.println(buffer1.equals(buffer2));
+        System.out.println(builder1.equals(builder2));
+        System.out.println(s1==s2);
+        System.out.println(buffer1==buffer2);
+        System.out.println(builder1==builder2);
+        System.out.println("==>" +buffer1.tostring().equalsIgnorecase(buffer2.tostring()));
+        System.out.println("==>" +builder1.tostring().equalsIgnorecase(builder2.tostring()));
+    }
+     public static void main(String[] args)
+     {
+         ClassA aobj=new ClassA();
+         aobj.meth1();
+         System.out.println("---------------");
+         aobj.meth2();
+    }
+}
