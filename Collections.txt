@@ -1,0 +1,38 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+
+public class ClassB
+{
+    void meth1()
+    {
+        ArrayList<ClassA> al=new ArrayList<ClassA>();
+        ClassA aobj1=new ClassA("Raju",101,"Python");
+        ClassA aobj2=new ClassA("Kishan",109,"Java");
+        ClassA aobj3=new ClassA("Vijay",104,"BackEnd Developer");
+       
+        al.add(aobj1);
+        al.add(aobj2);
+        al.add(aobj3);
+       
+        System.out.println(al);
+       
+        Iterator<ClassA> i1=al.iterator();
+        while(i1.hasNext())
+        {
+            System.out.println(i1.next());            
+        }
+       
+        System.out.println("-------------------------------------");
+        Collections.sort(al);
+        Iterator<ClassA> i2=al.iterator();
+        while(i2.hasNext())
+        {
+            System.out.println(i2.next());
+        }
+    }
+    public static void main(String[] args)
+    {
+        new ClassB().meth1();        
+    }
+}
