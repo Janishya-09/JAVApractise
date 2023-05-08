@@ -1,0 +1,27 @@
+package demoproject;
+
+public class ClassA {
+	void meth1() {
+		System.out.println("Meth1 called");
+		System.out.println(100);
+		System.out.println(50);
+		return;
+		
+	}
+	int meth2(int a,int b) {
+		System.out.println("Meth2 called");
+		System.out.println("a value:"+a);
+		System.out.println("b value:"+b);
+		return a+b;
+	}
+
+	public static void main(String[] args) 
+	{
+		ClassA aobj=new ClassA();
+		aobj.meth1();
+		aobj.meth2(99,1);
+		
+
+	}
+
+}
