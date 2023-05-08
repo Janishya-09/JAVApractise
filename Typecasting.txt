@@ -1,0 +1,184 @@
+public class ClassA
+{
+	void meth1()
+	{
+		byte b=30;
+		int x=b;
+		short s=b;
+		long l=b;
+		float f=b;
+		double d=b;
+		System.out.println("byte value b:" +b);
+		System.out.println("int value i:" +x);
+		System.out.println("short value s:" +s);
+		System.out.println("long value l:" +l);
+		System.out.println("float value f:" +f);
+		System.out.println("double value d:" +d);
+		System.out.println("===================");
+	}
+	void meth2()
+	{
+		short s=3000;
+		int x=s;
+		long l=s;
+		float f=s;
+		double d=s;
+		System.out.println("short value s:"+s);
+		System.out.println("long value l:" +l);
+		System.out.println("float value f:" +f);
+		System.out.println("double value d:" +d);
+		System.out.println("====================");
+	}
+	void meth3()
+	{
+		char c='J';
+		int x=c;
+		long l=c;
+		float f=c;
+		double d=c;
+		System.out.println("char value c:" +c);
+		System.out.println("int value x:" +x);
+		System.out.println("long value l:" +l);
+		System.out.println("float value f:" +f);
+		System.out.println("double value d:" +d);
+		System.out.println("=====================");
+	}
+	void meth4()
+	{
+		int i=9601;
+		long l=i;
+		float f=i;
+		double d=i;
+		System.out.println("int value i:" +i);
+		System.out.println("long value l:" +l);
+		System.out.println("float value f:" +f);
+		System.out.println("double value d:" +d);
+		System.out.println("====================");
+	}
+	void meth5()
+	{
+		long l=5678;
+		float f=l;
+		double d=l;
+		System.out.println("long value l:" +l);
+		System.out.println("float value f:" +f);
+		System.out.println("double value d:" +d);
+		System.out.println("====================");
+	}
+	void meth6()
+	{
+		float f=30;
+		double d=f;
+		System.out.println("float value f:" +f);
+		System.out.println("double value d:" +d);
+		
+	}
+	public static void main(String[] args)
+	{
+		ClassA aobj=new ClassA();
+		aobj.meth1();
+		aobj.meth2();
+		aobj.meth3();
+		aobj.meth4();
+		aobj.meth5();
+		aobj.meth6();
+		
+	}
+}
+
+======================================================================
+public class ClassA
+{
+	void meth1()
+	{
+		System.out.println("performing explicit type casting");
+		byte b=108;
+		char c=(char)b;
+		System.out.println("byte value b:" +b);
+		System.out.println("char value c:" +c);
+		
+	}
+	void meth2()
+	{
+		short s=3445;
+		byte b=(byte)s;
+		char c=(char)s;
+		System.out.println("short value s:" +s);
+		System.out.println("byte value b:" +b);
+		System.out.println("char value c:" +c);
+	}
+	void meth3()
+	{
+		char c='A';
+		short s=(short)c;
+		byte b=(byte)c;
+		System.out.println("char value c:" +c);
+		System.out.println("short value s:" +s);
+		System.out.println("byte value b:" +b);
+	}
+	void meth4()
+	{
+		int x=6789;
+		byte b=(byte)x;
+		short s=(short)x;
+	    System.out.println("int value x:" +x);
+	    System.out.println("byte value b:" +b);
+	    System.out.println("short value s:" +s);
+	}
+	void meth5()
+	{
+		long l=59;
+		byte b=(byte)l;
+		short s=(short)l;
+		char c=(char)l;
+		int i=(int)l;
+		System.out.println("long value l:" +l);
+		System.out.println("byte value b:" +b);
+		System.out.println("short value s:" +s);
+		System.out.println("char value c:" +c);
+		System.out.println("int value i:" +i);
+	}
+	void meth6()
+	{
+		float f=0.00001f;
+		byte b=(byte)f;
+		short s=(short)f;
+		long l=(long)f;
+		char c=(char)f;
+		int i=(int)f;
+		System.out.println("float value f:" +f);
+		System.out.println("byte value b:" +b);
+		System.out.println("short value s:" +s);
+		System.out.println("long value l:" +l);
+		System.out.println("char value c:" +c);
+		System.out.println("int value i:" +i);
+	}
+	void meth7()
+	{
+		double d=1.5;
+		byte b=(byte)d;
+		short s=(short)d;
+		int i=(int)d;
+		long l=(long)d;
+		float f=(float)d;
+		System.out.println("double value d:" +d);
+		System.out.println("byte value b:" +b);
+		System.out.println("short value s:" +s);
+		System.out.println("int value i:" +i);
+		System.out.println("long value l:" +l);
+		System.out.println("float value f:" +f);
+	}
+	public static void main(String[] args)
+	{
+		ClassA aobj=new ClassA();
+		aobj.meth1();
+		aobj.meth2();
+		aobj.meth3();
+		aobj.meth4();
+		aobj.meth5();
+		aobj.meth6();
+		aobj.meth7();
+		
+	}
+	
+}
