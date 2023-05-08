@@ -1,0 +1,24 @@
+public class ClassA {
+	void meth1() {
+		System.out.println(new ClassA().meth2(99,1));
+		System.out.println("Meth1() called");
+	}
+	int meth2(int a,int b) {
+		System.out.println("Meth2 called");
+		return a+b;
+	}
+	public ClassA()
+	{
+		System.out.println("ClassA default constructor");
+	}
+	ClassA(String s)
+	{
+		
+		System.out.println(s);
+	}
+	public static void main(String[] args)
+	{
+		ClassA aobj=new ClassA("Java is awesome");
+	aobj.meth1();
+		
+	}
