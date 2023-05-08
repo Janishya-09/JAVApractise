@@ -1,0 +1,48 @@
+DEFAULT:
+------------------------
+class ClassA
+{ 
+    void display() 
+    { 
+        System.out.println("Hello World!"); 
+    } 
+} 
+
+PRIVATE:
+-----------------------
+class A 
+{ 
+private void display() 
+    { 
+        System.out.println("Java is awesome"); 
+    } 
+} 
+  
+class B 
+{ 
+public static void main(String args[]) 
+    { 
+        A obj = new A(); 
+        obj.display(); 
+    } 
+} 
+
+PUBLIC:
+-------------------------
+public class A 
+{ 
+public void display() 
+    { 
+        System.out.println("Java is Awesome"); 
+    } 
+}
+
+PROTECTED:
+-------------------------
+public class A 
+{ 
+protected void display() 
+    { 
+        System.out.println("Java is Awesome"); 
+    } 
+} 
