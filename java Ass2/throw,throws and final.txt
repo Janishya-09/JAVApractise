@@ -1,0 +1,31 @@
+import java.io.FileReader;
+public class ClassA
+{
+	void meth1(int wd_amt) {
+		int amount=1000;
+		if(amount<wd_amt)
+		{
+			throw new RuntimeException("Balance is not sufficient");
+			
+		}
+		else
+		{
+			System.out.println("Transaction Success");
+			
+		}
+		void meth2() throws Exception
+		{
+			FileReader fr=new FileReader("E://NIT\\file1.txt");
+			System.out.println("meth2() executed");
+			
+		}
+		public static void main(String[] args) throws Exception
+		{
+			ClassA aobj=new ClassA();
+			aobj.meth1(500);
+			aobj.meth2();
+			
+		}
+	}
+}
+	

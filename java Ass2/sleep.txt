@@ -1,0 +1,13 @@
+public class classA
+{
+  public static void main(String[] args)throws InterruptedException
+  {
+     System.out.println("j");
+     Thread.sleep(2000);
+     System.out.println("a");
+     Thread.sleep(2000);
+     System.out.println("v");
+     Thread.sleep(2000);
+     System.out.println("a");
+  }
+}

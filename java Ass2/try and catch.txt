@@ -1,0 +1,27 @@
+public  class ClassA  extends Thread{
+	public void run()
+	{
+		System.out.println("I am ready");
+		for(int i=1;i<=5;i++)
+		{
+			System.out.println("This is my "+i+" exam");
+		}
+		try
+		{
+			System.out.println("I have to practice more");
+		}
+		catch(Exception e)
+		{
+			System.out.println("I have to score good marks ");
+			
+		}
+		System.out.println("I will never give up");
+	}
+	public static void main(String[] args) {
+		ClassA aobj=new ClassA();
+		Thread t=new Thread(aobj);
+		t.start();
+	}
+	
+		
+	}

@@ -1,0 +1,36 @@
+Extending THREAD:
+-------------------------
+public class ClassA extends Thread
+{
+     public void run()
+     {
+          for(i=1;i<=5;i++)
+          System.out.println("run() executed:" +i);
+     }
+     public static void main(String[] args)
+     {
+         ClassA aobj=new ClassA();
+         Thread t=new Thread(aobj);
+         t.start();
+     }
+}
+
+Implementing Runnable Interface:
+----------------------------------------
+public class ClassA implements Runnable
+{
+    public void run()
+    {
+         System.out.println("Implements Runnable");
+    }
+    public static void main(String[] args)
+    {
+       ClassA aobj=new ClassA();
+       Thread t1=new Thread(aobj);
+       Thread t2=new Thread();
+       t1.start();
+       t1.run();
+       t2.start();
+       t2.run();
+    }
+}

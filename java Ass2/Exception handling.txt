@@ -1,0 +1,28 @@
+import java.util.Scanner;
+public class ClassA{
+	void meth1()
+	{
+		Scanner sc=new Scanner(System.in);
+		System.out.println(10);
+		System.out.println("Please enter a number");
+		try
+		{
+			System.out.println("try block executed");
+			System.out.println(20/sc.nextInt());
+			
+		}
+		catch(ArithmeticException e)
+		{
+			System.out.println("catch block executed");
+			
+		}
+		finally {
+			System.out.println("finally block executed");
+			}
+		System.out.println(30);
+}
+		public static void main(String[] args)
+		{
+			new ClassA().meth1();
+		}
+	}

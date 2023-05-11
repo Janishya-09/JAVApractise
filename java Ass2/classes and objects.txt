@@ -1,0 +1,12 @@
+public class ClassA
+{
+   void meth1()
+   {
+      System.out.println("ClassA method executed");
+   }
+   public static void main(String[] args)
+   {
+      ClassA meth1().aobj;
+   }
+}
+      
