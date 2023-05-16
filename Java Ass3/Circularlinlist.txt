@@ -1,0 +1,58 @@
+package com.arr1;
+
+public class circularlinlist {
+
+	public static void main(String[] args) {
+		circularlinlist obj=new circularlinlist();
+		obj.insertBegin(11);
+		obj.insertBegin(22);
+		obj.insertBegin(33);
+		obj.insertBegin(44);
+		obj.insertBegin(55);
+		obj.print();
+	}
+	public class Node{
+		int element;
+		Node next;
+		public Node(int element) {
+			this.element=element;
+			
+		}
+	}
+	public Node head=null;
+	public Node tail=null;
+	int size=0;
+	public void insertBegin(int element) {
+		Node newEle=new Node(element);
+		if(head==null) {
+			head=newEle;
+			tail=newEle;
+			newEle.next=head;
+		}
+		else {
+			newEle.next=head;
+			head=newEle;
+			tail.next=head;
+		}
+		size++;
+	}
+	public void print() {
+		Node current=head;
+		if(head==null) {
+			System.out.println("List is empty");
+		}
+		else {
+			System.out.println("Nodes of the circular linked list:");
+			do {
+				System.out.println(" "+ current.element);
+				current=current.next;
+			}while(current!=head);
+			System.out.println();
+			
+			}
+		}
+		
+
+	}
+
+

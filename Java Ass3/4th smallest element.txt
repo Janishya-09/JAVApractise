@@ -1,0 +1,22 @@
+package com.arr1;
+
+public class Arrays {
+		public static int kthsmallest(Integer[] arr,int k) {
+			Arrays.sort(arr);
+			return arr[k-1];
+		}
+		
+		private static void sort(Integer[] arr) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public static void main(String[] args) {
+			Integer arr[]=new Integer[] {12,3,5,7,19};
+			int k=2;
+			System.out.println("kth smallest element is" +kthsmallest(arr,k));
+		}
+
+	}
+
+

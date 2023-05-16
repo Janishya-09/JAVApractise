@@ -1,0 +1,19 @@
+package com.arr1;
+
+public class Sum {
+	static int sum(int n)
+	{
+		int sum=(n*(n+1))/2;
+		return sum;
+	}
+	static int suminrange(int l,int r)
+	{
+		return sum(r)-sum(l-1);
+	}
+	public static void main(String[] args)
+	{
+		int l=2,r=5;
+		System.out.println("Sum of numbers from l to r is "+suminrange(l,r));
+	}
+
+}
