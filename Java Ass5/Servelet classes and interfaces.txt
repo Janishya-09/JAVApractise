@@ -1,0 +1,47 @@
+import java.io.*;
+import javax.servlet.*;
+
+public class MyFirstServlet implements Servlet {
+ 
+    ServletConfig config = null;
+ 
+    public void init(ServletConfig config)
+    {
+        this.config = config;
+ 
+        System.out.println("servlet is initialized:::"
+                           + config);
+    }
+ 
+    public void service(ServletRequest request,
+                        ServletResponse response)
+        throws IOException, ServletException
+    {
+ 
+        response.setContentType("text/html");
+
+        PrintWriter out = response.getWriter();
+ 
+        out.print("<html><body>");
+ 
+<h1><b>Welcome to java PORTAL</b></h1>");
+out.print("
+<h2><b> Example of Servlet Interface <b></h2>");
+out.print("</body></html>");
+    }
+ 
+    public void destroy()
+    {
+        System.out.println("servlet is destroyed now");
+    }
+
+    public ServletConfig getServletConfig()
+    {
+        return config;
+    }
+ 
+    public String getServletInfo()
+    {
+        return "copyright 2007-2011";
+    }
+}

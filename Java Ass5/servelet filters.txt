@@ -1,0 +1,33 @@
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.*;
+public class MyBlockFilter implements Filter {
+  
+    public void init(FilterConfig config)
+        throws ServletException
+    {
+    }
+  
+    public void doFilter(ServletRequest req,
+                         ServletResponse resp,
+  
+                         FilterChain fc)
+        throws IOException, ServletException
+    {
+  
+        String ip = req.getRemoteAddr();
+  
+        PrintWriter out = resp.getWriter();
+  
+        if (ip.equals("127.0.0.1")) {
+            out.print(
+                ",<h2>Your ip address is blocked ny this websites</h2>");
+        }
+  
+        else {
+            fc.doFilter(req, resp);
+        }
+    }
+  
+    public void destroy() {}
+}
