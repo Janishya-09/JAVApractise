@@ -1,0 +1,88 @@
+<dependency>  
+    <groupId>org.hibernate</groupId>  
+    <artifactId>hibernate-core</artifactId>  
+    <version>5.3.1.Final</version>  
+</dependency>  
+      
+<dependency>  
+    <groupId>com.oracle</groupId>  
+    <artifactId>ojdbc14</artifactId>  
+    <version>10.2.0.4.0</version>  
+</dependency>  import javax.persistence.Entity;  
+import javax.persistence.Id;  
+import javax.persistence.Table;  
+  
+@Entity  
+@Table(name= "emp500")   
+public class Employee {    
+  
+@Id   
+private int id;    
+private String firstName,lastName;    
+    
+public int getId() {    
+    return id;    
+}    
+public void setId(int id) {    
+    this.id = id;    
+}    
+public String getFirstName() {    
+    return firstName;    
+}    
+public void setFirstName(String firstName) {    
+    this.firstName = firstName;    
+}    
+public String getLastName() {    
+    return lastName;    
+}    
+public void setLastName(String lastName) {    
+    this.lastName = lastName;    
+}    
+}   <?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE hibernate-configuration PUBLIC  
+        "-//Hibernate/Hibernate Configuration DTD 5.3//EN"  
+        "http://www.hibernate.org/dtd/hibernate-configuration-5.3.dtd">  
+<hibernate-configuration>  
+    <session-factory>  
+            
+    <property name="hbm2ddl.auto">update</property>    
+        <property name="dialect">org.hibernate.dialect.Oracle9Dialect</property>    
+        <property name="connection.url">jdbc:oracle:thin:@localhost:1521:xe</property>    
+        <property name="connection.username">system</property>    
+        <property name="connection.password">jtp</property>    
+        <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>   
+       
+        <mapping class="com.javatpoint.mypackage.Employee"/>  
+    </session-factory>  
+</hibernate-configuration>  import org.hibernate.Session;    
+import org.hibernate.SessionFactory;    
+import org.hibernate.Transaction;  
+import org.hibernate.boot.Metadata;  
+import org.hibernate.boot.MetadataSources;  
+import org.hibernate.boot.registry.StandardServiceRegistry;  
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;  
+  
+    
+public class StoreData {    
+public static void main(String[] args) {    
+        
+    StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();  
+    Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();  
+  
+SessionFactory factory = meta.getSessionFactoryBuilder().build();  
+Session session = factory.openSession();  
+Transaction t = session.beginTransaction();   
+            
+    Employee e1=new Employee();    
+    e1.setId(101);    
+    e1.setFirstName("Gaurav");    
+    e1.setLastName("Chawla");    
+        
+    session.save(e1);  
+    t.commit();  
+    System.out.println("successfully saved");    
+    factory.close();  
+    session.close();    
+        
+}    
+}   

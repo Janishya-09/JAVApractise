@@ -1,0 +1,229 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+							http://maven.apache.org/maven-v4_0_0.xsd">
+<modelVersion>4.0.0</modelVersion>
+<groupId>com.geeksforgeeks</groupId>
+<artifactId>HibernateSampleExample</artifactId>
+<packaging>jar</packaging>
+<version>1.0-SNAPSHOT</version>
+<name>HibernateSampleExample</name>
+<url>http://maven.apache.org</url>
+<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.3.5.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.6</version>
+		</dependency>
+
+	</dependencies>
+
+<build>
+	<pluginManagement>
+	<plugins>
+		<plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-compiler-plugin</artifactId>
+		<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>		
+		</plugin>
+	</plugins>
+	</pluginManagement>
+	</build>
+</project>
+import java.util.Date;
+// We can check that column name in "UserDetails" is
+// matching with each and every field here. It is always good
+// to have the same column name and field name here
+public class UserDetails {
+	private int UserId;
+	private String Username;
+	private int numberOfPosts;
+	public int getNumberOfPosts() { return numberOfPosts; }
+
+	public int getUserId() { return UserId; }
+
+	public void setUserId(int UserId)
+	{
+		this.UserId =UserId;
+	}
+
+	public String getUsername() { return Username; }
+
+	public void setUsername(String Username)
+	{
+		this.Username = Username;
+	}
+
+	public void setNumberOfPosts(int numberOfPosts)
+	{
+		this.numberOfPosts = numberOfPosts;
+	}
+
+	private String createdBy;
+	private Date createdDate;
+
+	public String getCreatedBy() { return createdBy; }
+
+	public void setCreatedBy(String createdBy)
+	{
+		this.createdBy = createdBy;
+	}
+
+	public Date getCreatedDate() { return createdDate; }
+
+	public void setCreatedDate(Date createdDate)
+	{
+		this.createdDate = createdDate;
+	}
+}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+		"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<!-- UserDetails
+		is the name of the java class
+		 is the name of the table -->
+	<class name="com.UserDetails" table="UserDetails">
+		<id name="UserId" type="int" column="UserId">
+			<generator class="assigned"/>
+		</id>
+		<property name="Username">
+			<column name="Username"/>
+		</property>
+		<property name="numberOfPosts" type = "int">
+			<column name="numberOfPosts"/>
+		</property>
+		<property name="createdBy">
+			<column name="CREATED_BY"/>
+		</property>
+		<property name="createdDate" type="date">
+			<column name="CREATED_DATE"/>
+		</property>
+	</class>
+</hibernate-mapping>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<!-- Main configuration file -->
+<hibernate-configuration>
+	<session-factory>
+		<!-- As we are connecting MySQL, com.mysql.jdbc.
+			Driver is required(JDBC driver class) -->
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		
+		<!-- Here  is the name of the database
+			that we are connecting(JDBC URL) -->
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/</property>
+		
+		<!-- Username to connect to MySQL -->
+		<property name="hibernate.connection.username">root</property>
+		
+		<!-- Password to connect to MySQL, Provide your correct password -->
+		<property name="hibernate.connection.password">XXXX</property>
+		
+		<!-- Dialect required between hibernate and MySQL -->
+		<!-- This property makes Hibernate generate the
+			appropriate SQL for MySQL here -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="show_sql">true</property>
+		<property name="format_sql">true</property>
+		<property name="hbm2ddl.auto">update </property>
+		
+		<!-- We need to provide the exact mapping file
+			which we have created earlier -->
+		<mapping resource="user.hbm.xml" />
+	</session-factory>
+</hibernate-configuration>
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+public class HibernateUtil {
+	private static final SessionFactory sessionFactory
+		= buildSessionFactory();
+	private static SessionFactory buildSessionFactory()
+	{
+		try {
+			// We need to create the SessionFactory from
+			// hibernate.cfg.xml
+			return new Configuration()
+				.configure()
+				.buildSessionFactory();
+		}
+		catch (Throwable ex) {
+			// Make sure you log the exception, as it might
+			// be swallowed
+			// In case of any exception, it has to be
+			// indicated here
+			System.err.println(
+				"SessionFactory creation failed." + ex);
+			throw new ExceptionInInitializerError(ex);
+		}
+	}
+	public static SessionFactory getSessionFactory()
+	{
+		return sessionFactory;
+	}
+	public static void shutdown()
+	{
+		// Close caches and connection pools
+		getSessionFactory().close();
+	}
+}
+import java.util.Date;
+
+import org.hibernate.Session;
+
+public class GeekUserDetailsTest {
+	public static void main(String[] args) {
+
+		// open the session
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		// For doing any CRUD operation,
+		// let us start a transaction
+		session.beginTransaction();
+
+		// Create an object of UserDetails
+		UserDetails User = new UserDetails();
+
+		// Set all the details required
+		// to insert into the table
+		User.setUserId(1);
+	        User.setUsername("User1");
+		User.setNumberOfPosts(100);
+		User.setCreatedBy("User1");
+		User.setCreatedDate(new Date());
+
+		// Just a save statement is enough which
+		// automatically creates an insert statement
+		session.save(User);
+
+		// commit will help to complete
+		// the changes in the table
+		session.getTransaction().commit();
+
+		// close the session
+		session.close();
+	}
+}
+
+
+
+

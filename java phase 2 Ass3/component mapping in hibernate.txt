@@ -1,0 +1,26 @@
+public class Address {  
+private String city,country;  
+private int pincode;  
+  
+//getters and setters  
+}  package com.javatpoint;  
+public class Employee {  
+private int id;  
+private String name;  
+private Address address;//HAS-A  
+  
+//getters and setters  
+}  
+<class name="com.javatpoint.Employee" table="emp177">  
+<id name="id">  
+<generator class="increment"></generator>  
+</id>  
+<property name="name"></property>  
+  
+<component name="address" class="com.java.Address">  
+<property name="city"></property>  
+<property name="country"></property>  
+<property name="pincode"></property>  
+</component>  
+  
+</class>  
