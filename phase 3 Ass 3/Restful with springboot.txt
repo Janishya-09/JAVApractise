@@ -1,0 +1,138 @@
+package com.javatpoint;  
+public class Product   
+{  
+private int id;  
+private String pname;  
+private String batchno;  
+private double price;  
+private int noofproduct;  
+//default constructor  
+public Product()  
+{  
+      
+}  
+//constructor using fields  
+public Product(int id, String pname, String batchno, double price, int noofproduct)   
+{  
+super();  
+this.id = id;  
+this.pname = pname;  
+this.batchno = batchno;  
+this.price = price;  
+this.noofproduct = noofproduct;  
+}  
+//getters and setters  
+public int getId()   
+{  
+return id;  
+}  
+public void setId(int id)   
+{  
+this.id = id;  
+}  
+public String getPname()   
+{  
+return pname;  
+}  
+public void setPname(String pname)   
+{  
+this.pname = pname;  
+}  
+public String getBatchno()   
+{  
+return batchno;  
+}  
+public void setBatchno(String batchno)   
+{  
+this.batchno = batchno;  
+}  
+public double getPrice()   
+{  
+return price;  
+}  
+public void setPrice(double price)   
+{  
+this.price = price;  
+}  
+public int getNoofproduct()   
+{  
+return noofproduct;  
+}  
+public void setNoofproduct(int noofproduct)   
+{  
+this.noofproduct = noofproduct;  
+}  
+}  
+package com.javatpoint;  
+import java.util.List;  
+import org.springframework.beans.factory.annotation.Autowired;  
+import org.springframework.web.bind.annotation.GetMapping;  
+import org.springframework.web.bind.annotation.RestController;  
+@RestController  
+public class ProductController   
+{  
+@Autowired  
+private IProductService productService;  
+//mapping the getProduct() method to /product  
+@GetMapping(value = "/product")  
+public List<Product> getProduct()   
+{  
+//finds all the products  
+List<Product> products = productService.findAll();  
+//returns the product list  
+return products;  
+}  
+}  
+package com.javatpoint;  
+import java.util.List;  
+public interface IProductService   
+{  
+List<Product> findAll();  
+}  
+package com.javatpoint;  
+import java.util.ArrayList;  
+import java.util.List;  
+import org.springframework.stereotype.Service;  
+@Service  
+public class ProductService implements IProductService    
+{  
+@Override  
+public List<Product> findAll()  
+{  
+//creating an object of ArrayList  
+ArrayList<Product> products = new ArrayList<Product>();  
+//adding products to the List  
+products.add(new Product(100, "Mobile", "CLK98123", 9000.00, 6));  
+products.add(new Product(101, "Smart TV", "LGST09167", 60000.00, 3));  
+products.add(new Product(102, "Washing Machine", "38753BK9", 9000.00, 7));  
+products.add(new Product(103, "Laptop", "LHP29OCP", 24000.00, 1));  
+products.add(new Product(104, "Air Conditioner", "ACLG66721", 30000.00, 5));  
+products.add(new Product(105, "Refrigerator ", "12WP9087", 10000.00, 4));  
+//returns a list of product  
+return products;  
+}  
+}  
+<!DOCTYPE html>  
+<html>  
+<head>  
+<title>Home page</title>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+</head>  
+<body>  
+<p>  
+<a href="product">Get all Products</a>  
+</p>  
+</body>  
+</html>  
+package com.javatpoint;  
+import org.springframework.boot.SpringApplication;  
+import org.springframework.boot.autoconfigure.SpringBootApplication;  
+@SpringBootApplication  
+public class SpringBootRestExampleApplication   
+{  
+public static void main(String[] args)   
+{  
+SpringApplication.run(SpringBootRestExampleApplication.class, args);  
+}  
+}  

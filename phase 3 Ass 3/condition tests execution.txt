@@ -1,0 +1,176 @@
+public class OperatingSystemConditionalTest {
+  
+  @Test
+  @EnabledOnOs(OS.MAC)
+  void runOnlyOnMacOs() {
+      System.out.println("Run the batch job only on MAC OS");
+  }
+  @Test
+  @EnabledOnOs({ OS.LINUX, OS.MAC })
+  void runOnlyOnLinuxOrMac() {
+    System.out.println("Run the batch job only on LINUX or MAC OS");
+  }
+  @Test
+  @DisabledOnOs(OS.WINDOWS)
+  void notRunOnWindows() {
+    System.out.println("Not run the batch job on WINDOWS OS");
+  }
+  
+  @Test
+  @EnabledOnOs({ OS.WINDOWS })
+  void runOnlyOnWindows() {
+    System.out.println("Run the batch job only on WINDOWS OS");
+  }
+  
+  @Test
+    @DisabledOnOs({OS.AIX, OS.LINUX, OS.SOLARIS})
+    void notRunOnAIXorLinuxOrSolaris() {
+        System.out.println("Not run the batch job on AIX or LINUX or SOLARIS");
+    }
+}
+public class JavaRuntimeEnvironmentConditionalTest {
+  
+  @Test
+  @EnabledOnJre(JRE.JAVA_8)
+  void runOnlyOnJava8() {
+      System.out.println("Run the compatibility test only on JRE 8");
+  }
+  @Test
+  @EnabledOnJre({JRE.JAVA_13, JRE.JAVA_14})
+  void runOnlyOnJava13OrJava14() {
+    System.out.println("Run the compatibility test only on JRE 13 and JRE 14");
+  }
+  @Test
+  @DisabledOnJre(JRE.JAVA_13)
+  void notRunOnJava13() {
+    System.out.println("not run the compatibility test on JRE 13");
+  }
+  
+  @Test
+  @EnabledOnJre(JRE.JAVA_11)
+  void runOnlyOnJava11() {
+    System.out.println("Run the compatibility test only on JRE 11");
+  }
+  
+  @Test
+  @DisabledOnJre({JRE.JAVA_10, JRE.JAVA_11})
+    void notRunOnJava10andJava11() {
+    System.out.println("not Run the compatibility test on JRE 10 and JRE 11");
+    }  
+}
+public class SystemPropertiesConditionalTest {
+  
+  @Disabled
+  @Test
+  void printSystemProperties() {
+    //remove @Disabled to see System properties
+    System.getProperties().forEach((key, value) -> System.out.println(key+" - "+value));
+  }
+  @Test
+  @EnabledIfSystemProperty(named = "java.vm.vendor", matches = "Oracle.*")
+  void runOnlyOnOracleJDK() {
+    System.out.println("Run this only on Oracle JDK");
+  }
+  @Test
+  @EnabledIfSystemProperty(named = "os.arch", matches = ".*32.*")
+  void runOnlyOn32bitOS() {
+    System.out.println("Run this on only on 32 bit OS");
+  }
+  
+  @Test
+  @DisabledIfSystemProperty(named = "os.version", matches = ".*10.*")
+  void notRunOnlyOnWindows10() {
+    System.out.println("not run this only on windows 10 version");
+  }
+  
+  @Test
+  @EnabledIfSystemProperty(named = "os.version", matches = ".*10.*")
+  void runOnlyOnWindows10() {
+    System.out.println("Run this only on WINDOWS OS 10 version");
+  }
+}
+public class EnvironmentVariableConditionalTest {
+  
+  @Disabled
+  @Test
+  void printSystemProperties() {
+    // Remove @Disabled to see environment properties
+    System.getenv().forEach((key, value) -> System.out.println(key+" - "+value));
+  }
+  @Test
+  @EnabledIfEnvironmentVariable(named = "COMPUTERNAME", matches = "sysname")
+  void runOnlyOnPerticularMachine() {
+    System.out.println("Run this only on perticular server");
+  }
+  @Test
+  @DisabledIfEnvironmentVariable(named = "PROCESSOR_ARCHITECTURE", matches = ".*32.*")
+  void noRrunOn32bitOS() {
+    System.out.println("Not run this on 32 bit OS");
+  }
+  
+  @Test
+  @EnabledIfEnvironmentVariable(named = "USERNAME", matches = "username")
+  void runOnlyForPerticularUser() {
+    System.out.println("run this only for perticular user in system");
+  }
+}
+public class ScriptBasedConditionalTest {
+  
+  @Disabled
+  @DisplayName("Java Nashorn script Test")
+  @Test
+  void nashornTest(TestInfo testinfo) {
+    
+    ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
+    try {
+      // remove @Disabled to Demonstrating how nashorn script works
+      Object result1 = engine.eval("2 * 3 == 6");
+      
+      System.out.println("(2 * 3 == 6) => "+result1);
+      
+      Bindings bindings = engine.getBindings(ScriptContext.ENGINE_SCOPE);
+      bindings.put("systemProperty", System.getProperties());
+      bindings.put("junitDisplayName", testinfo.getDisplayName());
+      bindings.put("junitTags", testinfo.getTags());
+      engine.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
+      
+      System.out.println("systemProperty.get('os.arch')) => "+engine.eval("systemProperty.get('os.arch')"));
+      System.out.println("junitDisplayName => "+engine.eval("junitDisplayName"));
+      System.out.println("junitTags => "+engine.eval("junitTags"));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+  // Static JavaScript expression.
+  @Test
+  @EnabledIf("2 * 3 == 6")
+  void runOnlyIfExpressionValueTrue() {
+    System.out.println("(2 * 3 == 6) => true");
+  }
+  
+  // Regular expression testing bound system property.
+  @Test
+  @DisabledIf("/32/.test(systemProperty.get('os.arch'))")
+  void notRunOn32bitOS() {
+    System.out.println("Not run this on 32 bit OS");
+  }
+  
+  @Test
+  @EnabledIf("'admin' == systemEnvironment.get('USERNAME')")
+  void runOnlyForSpecificUser() {
+    System.out.println("Run this only for specific user");
+  }
+  
+  // Multi-line script, can give custom engine name and custom reason.
+  @Test
+  @EnabledIf(value = {
+            "load('classpath:script/myScript.js')",
+            "",
+            "myfunction(10) == true"
+        },
+        engine = "javascript",
+        reason = "On {annotation}, with script: {script}, result is: {result}\"")
+  void runOnlyOnlyIfValueIsEven() {
+    System.out.println("Run this only for Even numbers");
+  }
+}

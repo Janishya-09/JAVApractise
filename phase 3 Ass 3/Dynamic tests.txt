@@ -1,0 +1,53 @@
+public class Junit5_DynamicTests_Timeout_Test {
+  
+  @TestFactory
+  Collection<DynamicTest> test_dynamicTests_AssertTimeouts() {
+      return Arrays.asList(
+          
+          dynamicTest("1st dynamic test", () -> {
+             assertTimeout(Duration.ofSeconds(5), () -> { 
+                         TimeUnit.SECONDS.sleep(10);
+                           assertEquals(5, MathUtil.add(3, 2));
+                           System.out.println("Dynamic Test 3");
+                        });
+          }),
+          
+          dynamicTest("2nd dynamic test", () -> {
+             assertTimeoutPreemptively(Duration.ofSeconds(5), () -> { 
+                         TimeUnit.SECONDS.sleep(10);
+                           assertEquals(5, MathUtil.add(3, 2));
+                           System.out.println("Dynamic Test 4");
+                        });
+          }));
+    }
+}
+@TestMethodOrder(MethodOrderer.Alphanumeric.class)
+public class Junit5_DynamicTests_Order_Test {
+  
+  @TestFactory
+  Collection<DynamicTest> test_dynamicTests_AssertTimeouts() {
+    
+      List<DynamicTest> dynamicTests = Arrays.asList(
+              dynamicTest("1st dynamic test", () -> { 
+                assertTrue(MathUtil.isPrime(13)); 
+                System.out.println("=> 1st dynamic test");
+              }),
+              dynamicTest("2nd dynamic test", () -> {
+                assertEquals(5, MathUtil.devide(25, 5));
+                System.out.println("=> 2nd dynamic test");
+              }),
+              dynamicTest("3rd dynamic test", () -> { 
+                assertEquals(12, MathUtil.add(7, 5)); 
+                System.out.println("=> 3rd dynamic test");
+              })
+          );
+      
+       sortDynamicTests(dynamicTests);
+      return dynamicTests;
+    }
+  
+  static void sortDynamicTests(List<DynamicTest> dynamicTests) {
+    dynamicTests.sort((DynamicTest d1, DynamicTest d2) -> 
+                d2.getDisplayName().compareTo(d1.getDisplayName()));
+  }
+}
