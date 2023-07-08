@@ -1,0 +1,13 @@
+npm install bootstrap
+yarn add bootstrap
+import 'bootstrap/dist/css/bootstrap.css';
+// Put any other imports below so that CSS from your
+// components takes precedence over default styles.
+npm install sass
+yarn add sass
+// Override default variables before the import
+$body-bg: #000;
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';
+import './custom.scss';
